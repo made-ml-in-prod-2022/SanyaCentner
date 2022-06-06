@@ -3,7 +3,9 @@
 Установка:
 
 python -m venv .venv
+
 source .venv/bin/activate
+
 pip install -r requirements.txt
 
 Обучение логистической регрессии:
@@ -52,7 +54,8 @@ python notebooks/create_html.py notebooks/EDA.ipynb
 
 Организация проекта:
 
-├── configs             <- Папка с конфигурационными файлами
+|─ configs              <- Папка с конфигурационными файлами
+
 ├── data_csv            <- Данные для предсказания и предсказанные 
 ├── ml_project          <- Код для запуска
 │   ├── data            <- Работа с данными
