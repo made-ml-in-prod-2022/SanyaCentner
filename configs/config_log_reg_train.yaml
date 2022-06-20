@@ -1,0 +1,28 @@
+input_train_data_path: "data_csv/train_data.csv"
+input_test_data_path: "data_csv/test_data.csv"
+transformer_path: "ml_project/models/transformer.pkl"
+onehotenc_path: "ml_project/models/onehotencoder.pkl"
+model_path: "ml_project/models/model_log_reg.pkl"
+predict_path: "data_csv/predict.csv"
+model_type: "LogisticRegression"
+features:
+  categorical_features:
+    - "sex"
+    - "cp"
+    - "fbs"
+    - "restecg"
+    - "exang"
+    - "slope"
+    - "thal"
+  numerical_features:
+    - "age"
+    - "trestbps"
+    - "chol"
+    - "thalach"
+    - "oldpeak"
+    - "ca"
+  target_col: "condition"
+splitting_params:
+  val_size: 0.15
+  random_state: 42
+  stratify: True
