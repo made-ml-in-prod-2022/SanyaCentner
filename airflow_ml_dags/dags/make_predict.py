@@ -20,7 +20,7 @@ with DAG(
         'predict_dag',
         default_args=default_args,
         schedule_interval='@daily',
-        start_date=days_ago(5),
+        start_date=days_ago(1),
 ) as dag:
     predict = DockerOperator(
         image='airflow-predict',
