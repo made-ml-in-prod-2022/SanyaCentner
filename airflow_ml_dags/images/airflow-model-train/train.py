@@ -1,56 +1,35 @@
 import os
-import pickle
-
-import numpy as np
 import pandas as pd
-import click
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
+import argparse
+import pickle
 from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 
-@click.command('train')
-@click.option('--input-dir')
-@click.option('--output-dir')
-def train(input_dir: str, output_dir: str):
+def train(args):
+    x_train = pd.read_csv(args.input_dir + "/x_train.csv")
+    y_train = pd.read_csv(args.input_dir + "/y_train.csv")
 
-    df = pd.read_csv(os.path.join(input_dir, 'train_data.csv'))
+    model = LogisticRegression()
 
-    X = df[[col for col in df.columns if col != 'target']]
-    y = df['target']
+    model.fit(x_train, y_train)
 
-    cat_features = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'ca', 'thal']
-    num_features = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
+    with open(os.path.join(args.model_path, "model.pkl"), "wb") as f:
+        pickle.dump(model, f)
 
-    num_pipeline = Pipeline([
-        ("impute", SimpleImputer(missing_values=np.nan, strategy="mean")),
-        ('scaler', StandardScaler())
-    ])
 
-    cat_pipeline = Pipeline([
-        ("impute", SimpleImputer(missing_values=np.nan, strategy="most_frequent")),
-        ('encoder', OneHotEncoder(handle_unknown='ignore'))
-    ])
-
-    preprocessor = ColumnTransformer([
-        ('num', num_pipeline, num_features),
-        ('cat', cat_pipeline, cat_features)
-    ])
-
-    pipeline = Pipeline([
-        ('preprocessing', preprocessor),
-        ('classifier', LogisticRegression())
-    ])
-
-    pipeline.fit(X, y)
-
-    os.makedirs(output_dir, exist_ok=True)
-
-    with open(os.path.join(output_dir, 'model.pkl'), mode='wb') as f:
-        pickle.dump(pipeline, f)
+def createparser():
+    """read argument"""
+    parser_args = argparse.ArgumentParser()
+    parser_args.add_argument(
+        "--split", type=str, help="split data dir path", dest="input_dir"
+    )
+    parser_args.add_argument(
+        "--model", type=str, help="model file path", dest="model_path"
+    )
+    return parser_args
 
 
 if __name__ == '__main__':
-    train()
+    parser = createparser()
+    namespace = parser.parse_args()
+    train(namespace)

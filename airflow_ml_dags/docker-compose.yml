@@ -71,18 +71,6 @@ services:
     environment: *airflow_environment
     command: scheduler
 
-  ml_base:
-    build:
-      context: images/airflow-ml-base
-    image: airflow-ml-base
-    restart: "no"
-
-  predict:
-    build:
-      context: images/airflow-model-predict
-    image: airflow-model-predict
-    restart: "no"
-
   download:
     build:
       context: images/airflow-model-download
@@ -113,7 +101,12 @@ services:
     image: airflow-model-validate
     restart: "no"
 
+  predict:
+    build:
+      context: images/airflow-model-predict
+    image: airflow-model-predict
+    restart: "no"
+
 volumes:
   logs:
-
 

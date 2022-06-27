@@ -7,5 +7,3 @@ COPY requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
 
 COPY preprocess.py /preprocess.py
-
-ENTRYPOINT ["python", "preprocess.py"]

@@ -5,5 +5,3 @@ COPY requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
 
 COPY validate.py /validate.py
-
-ENTRYPOINT ["python", "validate.py"]

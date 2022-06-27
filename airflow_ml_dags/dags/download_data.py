@@ -1,34 +1,36 @@
+import os
 from datetime import timedelta
-
+from datetime import datetime
 from airflow import DAG
-from airflow.models import Variable
+from airflow.operators.dummy import DummyOperator
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 from docker.types import Mount
 
 default_args = {
-    'owner': 'airflow',
-    'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    "owner": "airflow",
+    "email": ["airflow@example.com"],
+    "retries": 1,
+    "retry_delay": timedelta(seconds=5),
 }
 
-host_data_dir = Variable.get('data_dir')
-
 with DAG(
-        dag_id='data_download_dag',
+        "data_generate",
         default_args=default_args,
-        schedule_interval='@daily',
-        start_date=days_ago(1),
-        max_active_runs=1,
+        schedule_interval="@daily",
+        start_date=days_ago(8)
 ) as dag:
-    download = DockerOperator(
-        image='airflow-download',
-        command='/data/raw/{{ ds }}',
-        network_mode='bridge',
-        task_id='docker-airflow-download',
+
+    start = DummyOperator(task_id="start")
+
+    data_generate = DockerOperator(
+        image="airflow-model-download",
+        command="python download.py --data /data/raw/{{ ds }}/data.csv --target /data/raw/{{ ds }}/target.csv",
+        network_mode="bridge",
+        task_id="docker-airflow-download",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=[Mount(source=host_data_dir, target='/data', type='bind')]
+        mounts=[Mount(source="/Users/aleksandr/Documents/SanyaCentner/airflow_ml_dags/data/", target="/data", type='bind')]
     )
 
-    download
+    start >> data_generate

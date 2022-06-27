@@ -1,65 +1,75 @@
+import os
 from datetime import timedelta
 
 from airflow import DAG
-from airflow.models import Variable
+from airflow.operators.dummy import DummyOperator
 from airflow.providers.docker.operators.docker import DockerOperator
+from airflow.sensors.filesystem import FileSensor
 from airflow.utils.dates import days_ago
 from docker.types import Mount
 
-
 default_args = {
-    'owner': 'airflow',
-    'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    "owner": "airflow",
+    "retries": 1,
+    "retry_delay": timedelta(seconds=5),
 }
 
-host_data_dir = Variable.get('data_dir')
-mounts = [Mount(source=host_data_dir, target='/data', type='bind')]
+
+def _wait_for_split_data():
+    return os.path.exists("/opt/airflow/data/split/{{ ds }}/x_train.csv")\
+            and os.path.exists("/opt/airflow/data/split/{{ ds }}/x_test.csv")\
+            and os.path.exists("/opt/airflow/data/split/{{ ds }}/y_train.csv")\
+            and os.path.exists("/opt/airflow/data/split/{{ ds }}/y_test.csv")
+
 
 with DAG(
-        'model_train_dag',
+        "train_model",
         default_args=default_args,
-        schedule_interval='@weekly',
-        start_date=days_ago(1),
+        schedule_interval="@weekly",
+        start_date=days_ago(8),
 ) as dag:
-    preprocess = DockerOperator(
-        image='airflow-preprocess',
-        command='--input-dir /data/raw/{{ ds }} --output-dir /data/processed/{{ ds }}',
-        network_mode='bridge',
-        task_id='docker-airflow-preprocess',
+
+    start = DummyOperator(task_id="start")
+
+    data_preprocess = DockerOperator(
+        image="airflow-model-preprocess",
+        command="python preprocess.py --data /data/raw/{{ ds }} --processed /data/processed/{{ ds }}/train_data.csv",
+        network_mode="bridge",
+        task_id="docker-aiflow-model-preprocess",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=mounts
+        mounts=[Mount(source="/Users/aleksandr/Documents/SanyaCentner/airflow_ml_dags/data/", target="/data", type='bind')]
     )
 
-    split = DockerOperator(
-        image='airflow-split',
-        command='--input-dir /data/processed/{{ ds }} --output-dir /data/split/{{ ds }} --val_size 0.33',
-        network_mode='bridge',
-        task_id='docker-airflow-split',
+    data_split = DockerOperator(
+        image="airflow-model-split",
+        command="python split.py --data /data/processed/{{ ds }}/train_data.csv --split /data/split/{{ ds }}",
+        network_mode="bridge",
+        task_id="docker-aiflow-model-split",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=mounts
+        mounts=[Mount(source="/Users/aleksandr/Documents/SanyaCentner/airflow_ml_dags/data/", target="/data", type='bind')]
     )
 
     train = DockerOperator(
-        image='airflow-train',
-        command='--input-dir /data/split/{{ ds }} --output-dir /data/models/{{ ds }}',
-        network_mode='bridge',
-        task_id='docker-airflow-train',
+        image="airflow-model-train",
+        command="python train.py --split /data/split/{{ ds }} --model /data/models/{{ ds }}",
+        network_mode="bridge",
+        task_id="docker-aiflow-model-train",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=mounts
+        mounts=[Mount(source="/Users/aleksandr/Documents/SanyaCentner/airflow_ml_dags/data/", target="/data", type='bind')]
     )
 
-    evaluate = DockerOperator(
-        image='airflow-evaluate',
-        command='--input-dir /data/split/{{ ds }} --models-dir /data/models/{{ ds }} --output-dir /data/metrics/{{ ds }}',
-        network_mode='bridge',
-        task_id='docker-airflow-evaluate',
+    val = DockerOperator(
+        image="airflow-model-validate",
+        command="python validate.py --split /data/split/{{ ds }} --model /data/models/{{ ds }}",
+        network_mode="bridge",
+        task_id="docker-airflow-model-validate",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        mounts=mounts
+        mounts=[
+            Mount(source="/Users/aleksandr/Documents/SanyaCentner/airflow_ml_dags/data/", target="/data", type='bind')]
     )
 
-    preprocess >> split >> train >> evaluate
+    start >> data_preprocess >> data_split >> train >> val

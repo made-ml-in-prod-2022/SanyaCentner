@@ -6,4 +6,3 @@ RUN pip install -r /build/requirements.txt
 
 COPY predict.py /predict.py
 
-ENTRYPOINT ["python", "predict.py"]

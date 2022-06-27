@@ -1,27 +1,36 @@
 import os
 import pickle
 import pandas as pd
-import numpy as np
-import click
+import argparse
 
 
-@click.command("predict")
-@click.option('--data-dir')
-@click.option('--model-path')
-@click.option('--output-dir')
-def predict(data_dir, output_dir):
-    data = pd.read_csv(os.path.join(data_dir, "data.csv"))
-    with open(model_path, mode='rb') as f:
-        model = pickle.load(f)
+def predict(args):
+    data = pd.read_csv(args.data_file)
 
-    predicts = model.predict(data)
+    model = pickle.load(open(args.model_path, 'rb'))
 
-    os.makedirs(output_dir, exist_ok=True)
-    predicts_df = pd.DataFrame(predicts)
+    pred = model.predict(data)
 
-    with open(os.path.join(output_dir, "predictions.csv"), "wb") as f:
-        predicts_df.to_csv(f, index=False)
+    with open(args.otput_file, "w+") as f:
+        f.write(pd.DataFrame(pred, columns=["prediction"]).to_csv(index=False))
+
+
+def createparser():
+    """read argument"""
+    parser_args = argparse.ArgumentParser()
+    parser_args.add_argument(
+        "--data", type=str, default="data.csv", help="input data file path", dest="data_file"
+    )
+    parser_args.add_argument(
+        "--model", type=str, default="model.pkl", help="model file path", dest="model_path"
+    )
+    parser_args.add_argument(
+        "--predict", type=str, default="predictions.csv", help="predicts file path", dest="otput_file"
+    )
+    return parser_args
 
 
 if __name__ == '__main__':
-    predict()
+    parser = createparser()
+    namespace = parser.parse_args()
+    predict(namespace)

@@ -7,5 +7,3 @@ COPY requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
 
 COPY split.py /split.py
-
-ENTRYPOINT ["python", "split.py"]

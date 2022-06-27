@@ -1,35 +1,47 @@
 import os
 import pickle
-import pandas as pd
-import click
 import json
-from sklearn.metrics import f1_score, roc_auc_score
+import pandas as pd
+import argparse
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_recall_fscore_support
 
 
-@click.command('evaluate')
-@click.option('--input-dir')
-@click.option('--models-dir')
-@click.option('--output-dir')
-def evaluate(input_dir: str, models_dir: str, output_dir: str):
-    with open(os.path.join(models_dir, 'model.pkl'), mode='rb') as f:
-        pipeline = pickle.load(f)
+def validate(args):
+    x_test = pd.read_csv(args.input_dir + "/x_test.csv")
+    y_test = pd.read_csv(args.input_dir + "/y_test.csv")
 
-    df = pd.read_csv(os.path.join(input_dir, 'test_data.csv'))
-    target = df['target']
-    del df['target']
+    model = pickle.load(open(args.model_path + "/model.pkl", 'rb'))
 
-    predicts = pipeline.predict(df)
+    prediction = model.predict(x_test)
 
-    os.makedirs(output_dir, exist_ok=True)
+    accuracy = accuracy_score(y_test, prediction).round(3)
+    precision, recall, fscore, _ = precision_recall_fscore_support(y_test, prediction)
 
     metrics = {
-        "f1_score": f1_score(target, predicts),
-        "roc_auc_score": roc_auc_score(target, predicts),
+        "Accurracy": accuracy,
+        "Precision": precision.tolist(),
+        "Recall": recall.tolist(),
+        "F-score": fscore.tolist()
     }
 
-    with open(os.path.join(output_dir, 'lr_metrics.json'), mode='w') as metric_file:
-        json.dump(metrics, metric_file)
+    with open(args.model_path + "/metrics.json", "w+") as f:
+        f.write(json.dumps(metrics))
+
+
+def createparser():
+    """read argument"""
+    parser_args = argparse.ArgumentParser()
+    parser_args.add_argument(
+        "--split", type=str, help="split data dir path", dest="input_dir"
+    )
+    parser_args.add_argument(
+        "--model", type=str, help="model file path", dest="model_path"
+    )
+    return parser_args
 
 
 if __name__ == '__main__':
-    evaluate()
+    parser = createparser()
+    namespace = parser.parse_args()
+    validate(namespace)

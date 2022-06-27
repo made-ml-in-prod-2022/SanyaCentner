@@ -1,19 +1,42 @@
 import os
 import pandas as pd
-import click
+import argparse
 from sklearn.model_selection import train_test_split
 
 
-@click.command('split')
-@click.option('--input-dir')
-@click.option('--output-dir')
-def split(input_dir, output_dir):
-    data = pd.read_csv(os.path.join(input_dir, 'train_data.csv'))
-    train_data, test_data = train_test_split(data, test_size=0.15)
-    os.makedirs(output_dir, exist_ok=True)
-    train_data.to_csv(os.path.join(output_dir, 'train_data.csv'), index=False)
-    test_data.to_csv(os.path.join(output_dir, 'test_data.csv'), index=False)
+def split(args):
+    df = pd.read_csv(args.data_file)
+    data = df.drop(columns=['target'], axis=1)
+    target = df['target']
+
+    x_train, x_test, y_train, y_test = train_test_split(data, target, test_size=0.15, random_state=42)
+
+    with open(args.otput_file + "/x_train.csv", "w+") as f:
+        f.write(x_train.to_csv(index=False))
+
+    with open(args.otput_file + "/y_train.csv", "w+") as f:
+        f.write(y_train.to_csv(index=False))
+
+    with open(args.otput_file + "/x_test.csv", "w+") as f:
+        f.write(x_test.to_csv(index=False))
+
+    with open(args.otput_file + "/y_test.csv", "w+") as f:
+        f.write(y_test.to_csv(index=False))
+
+
+def createparser():
+    """read argument"""
+    parser_args = argparse.ArgumentParser()
+    parser_args.add_argument(
+        "--data", type=str, default="data.csv", help="data file path", dest="data_file"
+    )
+    parser_args.add_argument(
+        "--split", type=str, help="split data file path", dest="otput_file"
+    )
+    return parser_args
 
 
 if __name__ == '__main__':
-    split()
+    parser = createparser()
+    namespace = parser.parse_args()
+    split(namespace)

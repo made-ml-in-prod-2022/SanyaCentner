@@ -5,5 +5,3 @@ COPY requirements.txt /build/requirements.txt
 RUN pip install -r /build/requirements.txt
 
 COPY train.py /train.py
-
-ENTRYPOINT ["python", "train.py"]
