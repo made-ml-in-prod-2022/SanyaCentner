@@ -4,59 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02c4cf93-8708-4e3a-84ab-35d51c65faf2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/models/2022-06-19/metrics.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/models/2022-06-19/model.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/models/2022-06-26/metrics.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/models/2022-06-26/model.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/predictions/2022-06-26/predictions.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/processed/2022-06-19/train_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/processed/2022-06-26/train_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-19/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-19/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-20/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-20/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-21/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-21/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-22/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-22/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-23/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-23/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-24/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-24/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-25/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-25/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-26/data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/raw/2022-06-26/target.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-19/x_test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-19/x_train.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-19/y_test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-19/y_train.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-26/x_test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-26/x_train.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-26/y_test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airflow_ml_dags/data/split/2022-06-26/y_train.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/dags/download_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/dags/download_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/dags/make_predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/dags/make_predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/dags/train_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/dags/train_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/data/raw/heart_cleveland_upload.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-ml-base/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-ml-base/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-download/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-download/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-download/download.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-download/download.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-download/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-download/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-predict/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-predict/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-predict/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-predict/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-preprocess/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-preprocess/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-preprocess/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-preprocess/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-split/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-split/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-split/split.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-split/split.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-train/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-train/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-train/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-train/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-validate/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-validate/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-validate/validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/airflow_ml_dags/images/airflow-model-validate/validate.py" afterDir="false" />
-    </list>
+    <list default="true" id="02c4cf93-8708-4e3a-84ab-35d51c65faf2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -319,7 +267,7 @@
       <workItem from="1656327695465" duration="38000" />
       <workItem from="1656327741451" duration="8000" />
       <workItem from="1656327775203" duration="1033000" />
-      <workItem from="1656332892885" duration="8693000" />
+      <workItem from="1656332892885" duration="9206000" />
     </task>
     <servers />
   </component>
