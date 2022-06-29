@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-liveness-blue-green
+  labels:
+    app: inference-liveness-blue-green
+spec:
+  replicas: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 6
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: inference-liveness-blue-green
+  template:
+    metadata:
+      name: inference-liveness-blue-green
+      labels:
+        app: inference-liveness-blue-green
+    spec:
+      containers:
+        - image: sanyacenter/ml_prod_server
+          name: inference-liveness-blue-green
+          ports:
+            - containerPort: 8000

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: inference-requests-limits
+spec:
+  containers:
+    - name: inference-requests-limits
+      image: sanyacenter/ml_prod_server
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 8000
