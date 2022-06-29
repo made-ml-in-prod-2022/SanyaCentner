@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-liveness-rolling-update
+  labels:
+    app: inference-liveness-rolling-update
+spec:
+  replicas: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: inference-liveness-rolling-update
+  template:
+    metadata:
+      name: inference-liveness-rolling-update
+      labels:
+        app: inference-liveness-rolling-update
+    spec:
+      containers:
+        - image: sanyacenter/ml_prod_server
+          name: inference-liveness-rolling-update
+          ports:
+            - containerPort: 8000

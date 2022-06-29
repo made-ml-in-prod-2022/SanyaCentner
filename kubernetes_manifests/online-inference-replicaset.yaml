@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: inference-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inference-replicaset
+  template:
+    metadata:
+      name: inference-replicaset
+      labels:
+        app: inference-replicaset
+    spec:
+      containers:
+        - image: sanyacenter/ml_prod_server
+          name: inference-replicaset
+          ports:
+            - containerPort: 8000
