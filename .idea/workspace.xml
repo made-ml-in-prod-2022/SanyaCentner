@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02c4cf93-8708-4e3a-84ab-35d51c65faf2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/kubernetes_man/online-inference-deployment-blue-green.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kubernetes_man/online-inference-deployment-rolling-update.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kubernetes_man/online-inference-pod-probes.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kubernetes_man/online-inference-pod-resources.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kubernetes_man/online-inference-pod.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kubernetes_man/online-inference-replicaset.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kubernetes_manifests/online-inference-pod-probes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kubernetes_manifests/online-inference-pod-probes.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +272,7 @@
       <workItem from="1656327741451" duration="8000" />
       <workItem from="1656327775203" duration="1033000" />
       <workItem from="1656332892885" duration="9206000" />
-      <workItem from="1656415038281" duration="7121000" />
+      <workItem from="1656415038281" duration="8411000" />
     </task>
     <servers />
   </component>

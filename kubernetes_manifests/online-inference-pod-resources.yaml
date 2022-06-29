@@ -8,10 +8,10 @@ spec:
       image: sanyacenter/ml_prod_server
       resources:
         requests:
-          memory: "64Mi"
-          cpu: "250m"
+          memory: "100Mi"
+          cpu: "200m"
         limits:
-          memory: "128Mi"
-          cpu: "500m"
+          memory: "200Mi"
+          cpu: "400m"
       ports:
         - containerPort: 8000
